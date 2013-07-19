@@ -4,9 +4,9 @@ int main (int argc, char const* argv[])
 	float fahr, celsius;
 	float lower, upper, step;
 	
-	lower = 0; /* lower limite of temperature scale*/
-	upper = 300; /* upper limit */
-	step = 20; /* step size */
+	lower = 0; 
+	upper = 300; 
+	step = 20; 
 	printf("Here is a program who translate fahr into celsius.\n\n");
 	printf(" *C\t*F\n");
 	fahr = lower;
