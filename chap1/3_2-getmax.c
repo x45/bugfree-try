@@ -15,6 +15,7 @@ int main (int argc, char const* argv[])
 			copy(longest, line);
 		}
 	if (max > 0)
+		printf("This is the longest line with %d char.\n",max);  // add for 1.16
 		printf("%s", longest);
 	return 0;
 }
