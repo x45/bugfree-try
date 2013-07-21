@@ -19,8 +19,8 @@ int get_line(char s[], int lim)
 
 	for (i=0; i < lim-1 && (c=getchar()) != EOF && c != ' '&& c!= '\t' && c != '\n'; ++i)
 		s[i] = c;
-	if (c == ' ') {
-		++i;
+	if (c == ' ' || c == '\t') {
+		s[i] = '\0';
 	}	
 	else if (c == '\n') {
 		s[i] = c;
