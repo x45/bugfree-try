@@ -6,9 +6,8 @@ int get_line(char line[], int maxline);
 
 int main (int argc, char const* argv[])
 {
-	int len, max = 0;
 	char line[MAXLINE];
-	while ((len = get_line(line,MAXLINE) > 0))
+	while (get_line(line,MAXLINE) > 0)
 		printf("%s",line);
 	return 0;
 }
