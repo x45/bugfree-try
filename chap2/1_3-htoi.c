@@ -2,7 +2,6 @@
 #include <math.h>
 
 int htoi(char s[]);
-int strlen(char s[]);
 
 int main()
 {
@@ -20,13 +19,13 @@ int htoi(char s[])
 	p = 0;
 
 	for (i = 0; s[i] != '\0';++i){}
-	len = i;	// len = size of s[]
+	len = i;	
 
 	if (s[0] == '0' && s[1] == 'x' || s[1] == 'X')
 	{
 		start = 2;
 	}
-	else 				// test value if char used is hex.
+	else 				
 	{
 		start = 0;
 	}
@@ -44,10 +43,12 @@ int htoi(char s[])
 			sum += 14 * pow(16,p);	
 		else if (s[i] == 'f' || s[i] == 'F')
 			sum += 15 * pow(16,p);	
-		else if (s[i] >= 0 && s[i] <= 9)
-			sum += (s[i] -0) * pow(16,p);	
+		else if (s[i] >= '0' && s[i] <= '9')
+			sum += (s[i] - '0') * pow(16,p);	
 		else  
 			printf("Invalid char in String");
-	++p;}
+	++p;
+	}
+	return sum;
 }
 
