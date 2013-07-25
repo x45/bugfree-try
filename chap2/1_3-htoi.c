@@ -48,6 +48,6 @@ int htoi(char s[])
 			sum += (s[i] -0) * pow(16,p);	
 		else  
 			printf("Invalid char in String");
-	}
+	++p;}
 }
 
