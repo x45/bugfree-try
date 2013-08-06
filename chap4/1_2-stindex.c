@@ -1,3 +1,4 @@
+#include <string.h>
 #include <stdio.h>
 #define MAXLIN 1000
 
@@ -6,6 +7,10 @@ int stringdex(char source[], char searchfor[]);
 
 int main(int argc, const char *argv[])
 {
+		char s[] = "mama mia come stoo";
+		char t[] = "come";
+
+		printf("%d",stringdex(s,t));
 		return 0;
 }
 
@@ -29,8 +34,8 @@ int stringdex(char s[], char t[])
 		int i, j, k;
 
 		for (i = 0; s[i] != '\0'; i++) {
-		
-				if (k > 0 && t[k] == '\0')
+			for (j = i, k = strlen(t)-1; s[j] = t[k] && k>= 0; j--, k--)
+				if (k < 0)
 						return i;
 		}
 		return -1;
