@@ -3,6 +3,7 @@
 
 #define MAXLINE 100
 
+int atoi(char s[]);
 double atof(char s[]);
 int get_line(char line[], int max);
 
@@ -52,4 +53,11 @@ int get_line(char line[], int max)
 			line[i++] = c;
 		line[i] = '\0';
 		return i;
+}
+
+int atoi(char s[])
+{
+	double atof(char s[]);
+
+	return (int) atof(s);
 }
