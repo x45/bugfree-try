@@ -8,14 +8,16 @@ int get_line(char line[], int max);
 
 int main(int argc, const char *argv[])
 {
-	double sum, atof(char []);
-	char line[MAXLINE];
-	int get_line(char line[], int max);
+		char s[] = "123.45e-6" ;
+		char t[] = "123.45E-6" ;
+		char u[] = "123.45e6" ;
+		char v[] = "123.45E6" ;
 
-	sum = 0;
-	while (get_line(line, MAXLINE) > 0)
-			printf("\t%g\n",sum += atof(line));
-	return 0;
+		printf("%10s -> %25.15f\n",s, atof(s));
+		printf("%10s -> %25.15f\n",t, atof(t));
+		printf("%10s -> %25.15f\n",u, atof(u));
+		printf("%10s -> %25.15f\n",v, atof(v));
+		return 0;
 }
 
 double atof(char s[])
