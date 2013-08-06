@@ -23,3 +23,15 @@ int get_line(char s[], int lim)
 		return i;	
 		}
 }
+
+int stringdex(char s[], char t[])
+{
+		int i, j, k;
+
+		for (i = 0; s[i] != '\0'; i++) {
+		
+				if (k > 0 && t[k] == '\0')
+						return i;
+		}
+		return -1;
+}
