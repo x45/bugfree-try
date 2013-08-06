@@ -16,6 +16,7 @@ runtime! debian.vim
 "set compatible
 filetype plugin on
 filetype indent on
+let Tlist_Use_Right_Window   = 1 " Show Ttag on the right
 
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
