@@ -32,6 +32,12 @@ int main(int argc, const char *argv[])
 						op2 = pop();
 						push(pop() - op2);
 						break;
+					case '%':
+						op2 = pop();
+						if (op2 != 0.0)
+								push((int) pop() % (int) op2 );
+						else
+								printf("Error: zero divisor\n");
 					case '/':
 						op2 = pop();
 						if (op2 != 0.0)
@@ -81,9 +87,18 @@ int getop(char s[])
 	while ((s[0] = c = getch()) == ' ' || c == '\t')
 			;
 	s[1] = '\0';
-	if (!isdigit(c) && c != ' ')
+	if (!isdigit(c) && c != '.'&& c != '-')
 		return c;
 	i = 0;
+	if(c == '-') {
+		if (isdigit(c = getch()) || c == '.')
+				s[++i] = c;
+		else {
+				if (c != EOF)
+						ungetch(c);
+				return '-';
+		}
+	}
 	if (isdigit(c))
 		while (isdigit(s[++i] = c = getch()))
 			;
