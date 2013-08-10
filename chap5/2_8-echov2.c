@@ -3,7 +3,7 @@
 int main(int argc, const char *argv[])
 {
 	while ( -- argc > 0)
-			printf("%s%s",*++argv, (argc > 1) ? " " : " ");
+			printf("%s%s",*++argv, (argc > 1) ? " " : "");
 	printf("\n");
 	return 0;
 }
