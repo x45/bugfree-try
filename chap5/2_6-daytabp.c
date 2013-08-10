@@ -42,8 +42,8 @@ void month_day(int year, int yearday, int *pmonth, int *pday)
 	for (i = 1; yearday > daytab[leap][i]; i++)
 			yearday -= daytab[leap][i];
 	if ( i > 12 && yearday > daytab[leap][12]){
-					*pmonth = -1;
-					*pday = -1;
+		*pmonth = -1;
+		*pday = -1;
 	}else{
 			*pmonth = i;
 			*pday = yearday;
