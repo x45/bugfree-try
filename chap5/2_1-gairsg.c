@@ -1,8 +1,3 @@
-itoa
-reverse
-strined
-getop
-
 int getline(char s[], int lim)
 {
 	inc c,i;
