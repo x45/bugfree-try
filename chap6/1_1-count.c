@@ -47,7 +47,7 @@ struct key {
 		"while", 0
 };
 
-
+int comment(void);
 int getch(void);
 void ungetch(int);
 int getword(char *, int);
@@ -88,7 +88,7 @@ int binsearch(char *word, struct key tab[], int n)
 
 int getword(char *word, int lim)
 {
-	int c, getch(void);
+	int c, d, comment(void), getch(void);
 	void ungetch(int);
 	char *w = word;
 
@@ -96,17 +96,28 @@ int getword(char *word, int lim)
 					;
 	if (c != EOF)
 			*w++ = c;
-	if (!isalpha(c)) {
-			*w = '\0';
-			return c;
-	}
-	for ( ; --lim > 0; w++)
-			if (!isalnum(*w = getch())){
-					ungetch(*w);
-					break;
-			}
+	if (!isalpha(c) || c == '_' || c == '#') {
+		for ( ; --lim > 0; w++)
+				if (!isalnum(*w = getch())){
+						ungetch(*w);
+						break;
+				}
+	} else if (c == '\'' || c == '"') {
+			for ( ; --lim > 0; w++)
+					if ((*w = getch()) == '\\')
+							*++w = getch();
+					else if (*w == c) {
+							w++;
+							break;
+					}else if (*w == EOF)
+							break;
+	} else if (c == '/')
+			if ((d = getch()) == '*')
+					c = comment();
+			else
+					ungetch(d);
 	*w = '\0';
-	return word[0];
+	return c;
 }
 
 int getch(void)
@@ -120,4 +131,16 @@ void ungetch(int c)
 			printf("ungetch: too many chars\n");
 	else
 			buf[bufp++] = c;
+}
+
+int comment(void)
+{
+	int c;
+	while ((c = getch()) != EOF)
+			if (c == '*')
+					if ((c =getch()) == '/')
+							break;
+					else
+							ungetch(c);
+	return c;
 }
