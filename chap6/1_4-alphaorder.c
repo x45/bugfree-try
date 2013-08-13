@@ -24,7 +24,7 @@ void treexprint(struct tnode *);
 int getword(char *, int);
 int getch(void);
 int comment(void);
-int ungetch(int);
+void ungetch(int);
 
 int main(int argc, const char *argv[])
 {
@@ -76,8 +76,12 @@ int compare (char *s, struct tnode *p, int num, int *found)
 	return *s - *t;
 }
 
+struct tnode *talloc(void)
+{
+	return (struct tnode *) malloc(sizeof(struct tnode));
+}
 
-void treexprint(struct tnope *p)
+void treexprint(struct tnode *p)
 {
 	if (p != NULL) {
 			treexprint(p->left);
@@ -98,7 +102,7 @@ int getword(char *word, int lim)
 	if (c != EOF)
 			*w++ = c;
 	if (!isalpha(c) || c == '_' || c == '#') {
-			for ( ; --lim > 0, w++)
+			for ( ; --lim > 0; w++)
 					if (!isalnum(*w = getch())) {
 							ungetch(*w);
 							break;
@@ -128,7 +132,7 @@ int getch(void)
 
 void ungetch(int c)
 {
-	if (bufp >= BUFSIZE)
+	if (bufp >= BUFFSIZE)
 			printf("ungetch: too many chars\n");
 	else
 			buf[bufp++] = c;
@@ -138,7 +142,7 @@ int comment(void)
 	int c;
 	while ((c = getch()) != EOF)
 			if (c == '*')
-					if ((c = getch()) = '/')
+					if ((c = getch()) == '/')
 							break;
 					else
 							ungetch(c);
