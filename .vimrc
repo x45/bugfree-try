@@ -39,6 +39,15 @@ if has("autocmd")
   filetype plugin indent on
 endif
 
+
+autocmd bufnewfile *.c exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
+autocmd bufnewfile *.c so /home/nnm/Bureau/programmation/c/learn/c_header.txt
+"autocmd bufnewfile *.c exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d-%m-%Y")
+"autocmd Bufwritepre,filewritepre *.c execute "normal ma"
+"autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
+"autocmd bufwritepost,filewritepost *.c execute "normal `a"
+
+
 " The following are commented out as they cause vim to behave a lot
 " differently from regular Vi. They are highly recommended though.
 set showcmd			" Show (partial) command in status line.
@@ -46,6 +55,8 @@ set number          " Show lines numbers
 set ttyfast         " smoother changes
 set tabstop=4       " numbers of spaces of tab character
 set ls=2            " always show status line  
+" Show when a line exceeds 80 chars
+:au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
 "set shiftwidth=4    " numbers of spaces to (auto)indent
 set showmatch		" Show matching brackets.
 "set ignorecase		" Do case insensitive matching

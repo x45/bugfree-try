@@ -99,6 +99,7 @@ alias vdir='vdir --color=auto'
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
+alias man='LANG=C man'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
@@ -218,118 +219,6 @@ function my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command ; }
 function pp() { my_ps f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
 
 # hardware -------------------------------------------------------------
-# processor
-function core() { cat /proc/cpuinfo | grep "model name" | cut -c14- ; }
-# graphic card
-function graph() { lspci | grep -i vga | cut -d: -f3 ; }
-# ethernet card
-function ethcard() { lspci | grep -i ethernet | cut -d: -f3 ; }
-# wireless card
-function wfcard() { lspci | grep -i network | cut -d: -f3 ; }
-
-# battery --------------------------------------------------------------
-function batt()
-{
-    # check main battery
-    B0CHG=$(cat /sys/class/power_supply/BAT0/status)
-    B0FULL=$(cat /sys/class/power_supply/BAT0/energy_full)
-    B0NOW=$(cat /sys/class/power_supply/BAT0/energy_now)
-    B0PERC=$(( (( $B0NOW * 100 )) / $B0FULL ))
-    # check dockstation battery
-    if [ -d /sys/class/power_supply/BAT2 ];then
-        B2CHG=$(cat /sys/class/power_supply/BAT2/status)
-        B2FULL=$(cat /sys/class/power_supply/BAT2/energy_full)
-        B2NOW=$(cat /sys/class/power_supply/BAT2/energy_now)
-        B2PERC=$(( (( $B2NOW * 100 )) / $B2FULL ))
-
-        B2STA=$(echo -e "${blue}/$NC dock: $B2CHG - $B2PERC %")
-    else
-        B2STA=
-    fi
-    # output
-    echo -e " main: $B0CHG - $B0PERC % $B2STA"
-}
-
-# local ip address -----------------------------------------------------
-function my_lip()
-{
-    # wired interface
-    if [ "$(cat /sys/class/net/eth0/operstate)" = "up" ];then
-        MY_ETH0IP=$(sudo /sbin/ifconfig eth0 | awk '/inet/ {print $2}' | sed -e s/addr://)
-    else
-        MY_ETH0IP=$(echo "not connected")
-    fi
-    # wireless interface
-    if [ "$(cat /sys/class/net/eth1/operstate)" = "up" ];then
-        MY_ETH1IP=$(sudo /sbin/ifconfig eth1 | awk '/inet/ {print $2}' | sed -e s/addr://)
-    else
-        MY_ETH1IP=$(echo "not connected")
-    fi
-    # output
-    echo -e " wired: $MY_ETH0IP -- wireless: $MY_ETH1IP"
-}
-
-# public ip address ----------------------------------------------------
-function my_eip()
-{
-    if [ "$(cat /sys/class/net/eth0/operstate)" = "up" ] || [ "$(cat /sys/class/net/eth1/operstate)" = "up" ];then
-        MY_EXIP=$(wget -q -O - checkip.dyndns.org | sed -e 's/[^[:digit:]\|.]//g')
-    else
-        MY_EXIP=$(echo "not connected")
-    fi
-    # output
-    echo -e " $MY_EXIP"
-}
-
-# openports ------------------------------------------------------------
-function oports() { sudo netstat -nap --inet | head -n 18 | ccze -A; }
-
-# infobox --------------------------------------------------------------
-function ii()
-{
-    echo
-    echo -e "${red}                                                           ┌─────────────────────────┐"
-    echo -e "${red}┌──────────────────────────────────────────────────────────┤$NC      Debian InfoBox    ${red} │"
-    echo -e "${red}│          ┌──────────────────┐                            └────────────┬────────────┘"
-    echo -e "${red}├──────────┤${bblue} IBM ThinkPad x31${red} ├─────────────────────────────────────────┘"
-    echo -e "${red}│          └──────────────────┘"
-    echo -e "${red}│${blue}┌── agenda ────────────────────────────────────────────────────────────"
-    echo -e "${red}│${blue}└$NC `date +'%A, %B %-d, %Y -- %I:%M %P'`"
-    echo -e "${red}│${bblue}┌── processor information ─────────────────────────────────────────────"
-    echo -e "${red}│${bblue}└$NC `core`"
-    echo -e "${red}│${bblue}┌── graphic information ───────────────────────────────────────────────"
-    echo -e "${red}│${bblue}└$NC`graph`"
-    echo -e "${red}│${bblue}┌── ethernet information ──────────────────────────────────────────────"
-    echo -e "${red}│${bblue}└$NC`ethcard`"
-    echo -e "${red}│${bblue}┌── wireless information ──────────────────────────────────────────────"
-    echo -e "${red}│${bblue}└$NC`wfcard`"
-    echo -e "${red}│          ┌────────────────────────────┐"
-    echo -e "${red}├──────────┤${bgreen} Debian GNU/Linux livarp 04${red} │"
-    echo -e "${red}│          └────────────────────────────┘"
-    echo -e "${red}│${yellow}┌── kernel information ────────────────────────────────────────────────"
-    echo -e "${red}│${yellow}└$NC `uname -a`"
-    echo -e "${red}│${bcyan}┌── machine stats ─────────────────────────────────────────────────────"
-    echo -e "${red}│${bcyan}└$NC`uptime`"
-    echo -e "${red}│${bgreen}┌── memory stats ──────────────────────────────────────────────────────"
-    echo -e "${red}│${bgreen}└$NC`mmuse`"
-    echo -e "${red}│${green}┌── disk stats ────────────────────────────────────────────────────────"
-    echo -e "${red}│${green}└$NC`dduse`"
-    echo -e "${red}│${blue}┌── batt stats ────────────────────────────────────────────────────────"
-    echo -e "${red}│${blue}└$NC`batt`"
-    echo -e "${red}│${yellow}┌── sensors ───────────────────────────────────────────────────────────"
-    echo -e "${red}│${yellow}└$NC`temps`"
-    echo -e "${red}│${cyan}┌── local IP address ──────────────────────────────────────────────────"
-    echo -e "${red}│${cyan}└$NC`my_lip`"
-    echo -e "${red}│${cyan}┌── external IP address ───────────────────────────────────────────────"
-    echo -e "${red}│${cyan}└$NC`my_eip`"
-    echo -e "${red}│          ┌──────────────────┐"
-    echo -e "${red}├──────────┤${bcyan} Open Connections${red} │"
-    echo -e "${red}│          └──────────────────┘"
-    echo -e "${red}│$NC `oports`"
-    echo -e "${red}└────────────────────────────────────────────────────────────────────┤│"
-    
-}
-
 # archives -------------------------------------------------------------
 # extract
 function extract()      
@@ -388,6 +277,6 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 autoload -Uz promptinit
 autoload -U colors && colors
 promptinit
-RPROMPT="%{$reset_color%}< %{$fg[blue]%}%M%{$reset_color%}:%{$fg[cyan]%}%y%{$reset_color%}:%{$fg[yellow]%}%~%{$reset_color%}"
+RPROMPT="%{$reset_color%}< %{$fg[blue]%}%M%{$reset_color%}:%{$fg[yellow]%}%~%{$reset_color%}"
 PROMPT="%{$reset_color%}%{$fg[yellow]%} %T%{$reset_color%} %{$fg[green]%}%n%{$reset_color%} > "
 ## EOF #################################################################
