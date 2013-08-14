@@ -8,7 +8,7 @@
 
 " This line should not be removed as it ensures that various options are
 " properly set to work with the Vim-related packages available in Debian.
-runtime! debian.vim
+"runtime! debian.vim
 
 " Uncomment the next line to make Vim more Vi-compatible
 " NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
@@ -41,7 +41,7 @@ endif
 
 
 autocmd bufnewfile *.c exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
-autocmd bufnewfile *.c so /home/nnm/Bureau/programmation/c/learn/c_header.txt
+autocmd bufnewfile *.c so PATH/c_header.txt
 "autocmd bufnewfile *.c exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d-%m-%Y")
 "autocmd Bufwritepre,filewritepre *.c execute "normal ma"
 "autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
@@ -56,7 +56,8 @@ set ttyfast         " smoother changes
 set tabstop=4       " numbers of spaces of tab character
 set ls=2            " always show status line  
 " Show when a line exceeds 80 chars
-:au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
+":au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1) " Max 80
+"chars.
 "set shiftwidth=4    " numbers of spaces to (auto)indent
 set showmatch		" Show matching brackets.
 "set ignorecase		" Do case insensitive matching
