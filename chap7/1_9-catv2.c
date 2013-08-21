@@ -18,7 +18,7 @@ int main(int argc, const char *argv[])
 							fclose(fp);
 					}
 	if (ferror(stdout)) {
-					fprintf(stderr, "%s: error writing stdou\n", prog);
+					fprintf(stderr, "%s: error writing stdout\n", prog);
 					exit(2);
 	}
 	exit(0);
