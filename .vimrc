@@ -8,7 +8,7 @@
 
 " This line should not be removed as it ensures that various options are
 " properly set to work with the Vim-related packages available in Debian.
-"runtime! debian.vim
+runtime! debian.vim
 
 " Uncomment the next line to make Vim more Vi-compatible
 " NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
@@ -17,6 +17,15 @@
 filetype plugin on
 filetype indent on
 let Tlist_Use_Right_Window   = 1 " Show Ttag on the right
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+
+let mapleader = ","
+let g:mapleader = ","
+
+" Fast saving
+nmap <leader>w :w!<cr>
 
 " Vim5 and later versions support syntax highlighting. Uncommenting the next
 " line enables syntax highlighting by default.
@@ -28,9 +37,9 @@ set background=dark
 
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
-"if has("autocmd")
-"  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
+if has("autocmd")
+  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
 " Uncomment the following to have Vim load indentation rules and plugins
 " according to the detected filetype.
@@ -40,12 +49,12 @@ if has("autocmd")
 endif
 
 
-autocmd bufnewfile *.c exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
-autocmd bufnewfile *.c so PATH/c_header.txt
-"autocmd bufnewfile *.c exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%d-%m-%Y")
-"autocmd Bufwritepre,filewritepre *.c execute "normal ma"
-"autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Last Modified :.*/s/Last Modified :.*/Last Modified : " .strftime("%c")
-"autocmd bufwritepost,filewritepost *.c execute "normal `a"
+autocmd bufnewfile *.c so /path/c_header.txt
+autocmd bufwritepost,filewritepost *.c execute "normal `a"
+autocmd bufnewfile *.c exe "1," . 10 . "g/ft.c\+*/s//" .expand("%").""
+autocmd bufnewfile *.c exe "1," . 10 . "g/Created: +*/s//Created: " .strftime("%Y-%m-%d %H:%M:%S").""
+autocmd bufnewfile *.c exe "1," . 10 . "g/Updated: /s/Updated: /Updated: " .strftime("%Y-%m-%d %H:%M:%S"). ""
+autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Updated: /s/Updated: .+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*/Updated: " .strftime("%Y-%m-%d %H:%M:%S"). ""
 
 
 " The following are commented out as they cause vim to behave a lot
@@ -53,15 +62,18 @@ autocmd bufnewfile *.c so PATH/c_header.txt
 set showcmd			" Show (partial) command in status line.
 set number          " Show lines numbers
 set ttyfast         " smoother changes
+set ai              " auto indent
+set expandtab       " use space instead of tabs
+set si              " smart indent 
+set smarttab	    " Be smart when using tabs 
 set tabstop=4       " numbers of spaces of tab character
 set ls=2            " always show status line  
 " Show when a line exceeds 80 chars
-":au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1) " Max 80
-"chars.
-"set shiftwidth=4    " numbers of spaces to (auto)indent
+:au BufWinEnter * let w:m1=matchadd('ErrorMsg', '\%>80v.\+', -1)
+set shiftwidth=4    " numbers of spaces to (auto)indent
 set showmatch		" Show matching brackets.
 "set ignorecase		" Do case insensitive matching
-set smartcase		" Do smart case matching
+"set case		" Do smart case matching
 "set incsearch		" Incremental search
 "set autowrite		" Automatically save before commands like :next and :make
 "set hidden             " Hide buffers when they are abandoned
