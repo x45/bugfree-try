@@ -1,4 +1,4 @@
-##############################
+###############################
 ## zsh config file ~/.zshrc ##
 ##       arpinux@2013       ##
 ##############################
@@ -112,21 +112,7 @@ alias gm='cd /media'
 alias gc='cd ~/.config'
 alias gb='cd ~/bin'
 alias gp='cd ~/pkgs'
-alias gg='cd ~/arpinux_git'
 
-# apps -----------------------------------------------------------------
-# agenda/todo list
-alias agenda='calcurse'
-# tasks list
-alias todo='python ~/pkgs/t/t.py --task-dir ~/tasks --list tasks'
-# cli feed reader
-alias canto='canto-fetch && canto'
-# may the force be with you
-alias starwars="telnet towel.blinkenlights.nl"
-# internet 
-alias wweb='xlinks2 -background-color 0x222222 -foreground-color 0x005885 -scroll-bar-area-color 0x222222 -scroll-bar-bar-color 0x005885 -display-optimize 1 http://arpinux.org/startarp &'
-
-# utils ----------------------------------------------------------------
 # empty trash folder
 alias emptytrash='rm -vRI .local/share/Trash/files .local/share/Trash/info; echo -e "\n >> ${red}trash is gone$NC <<\n"'
 # get top 10 shell commands:
@@ -138,21 +124,11 @@ alias mod60="find /home/$USER/ -path /home/$USER/.thumbnails -prune -o -path /ho
 alias modd="find /home/$USER/ -path /home/$USER/.thumbnails -prune -o -path /home/$USER/.mozilla -prune -o -mtime -1"
 # make parent directory if needed
 alias mkdir='mkdir -p'
-
-# private --------------------------------------------------------------
-# codes
-alias codes='vim ~/docs/prive/arpcodes.txt'
-# ssh
-alias laetissh='ssh laeti@192.168.1.12'
-alias pissh='screen ssh arp@piserv'
-
+#alias gcc
+alias gww="gcc -Werror -Wextra -Wall"
+alias moulinette="gcc -Werror -Wextra -Wall"
+#
 # packages -------------------------------------------------------------
-alias debup='sudo apt-get update && sudo apt-get dist-upgrade && sudo apt-get clean'
-alias debsh='apt-cache search'
-alias debvs='apt-cache policy'
-alias debin='sudo apt-get --no-install-recommends install'
-alias debrm='sudo apt-get autoremove --purge'
-alias debgui='gksudo synaptic'
 
 # quit, exit & reboot --------------------------------------------------
 alias :q='exit'
@@ -191,35 +167,7 @@ alias -s tar.bz2=dtrx
 alias -s xz=dtrx
 alias -s rar=dtrx
 
-########################################################################
-## functions ###########################################################
-########################################################################
 
-# misc -----------------------------------------------------------------
-# find from name in current directory
-function ff() { find . -type f -iname '*'$*'*' -ls ; }
-# generate a dated .bak from file
-function bak() { cp $1 $1_`date +%Y-%m-%d_%H:%M:%S`.bak ; }
-# get website
-function wdl() { wget -r -l5 -k -E ${1} ; }
-# minical
-function today() { echo -n "Today's date is:\n"; date +"%A, %B %-d, %Y"; }
-
-# infos ----------------------------------------------------------------
-# generate space report
-function space() { du -skh * | sort -hr ; }
-# disk usage
-function dduse() { echo -e " `df -h | grep sda1 | awk '{print $5}'` used -- `df -h | grep sda1 | awk '{print $4}'` free"; }
-# mem usage
-function mmuse() { echo -e " `free -m | grep buffers/cache | awk '{print $3}'` used -- `free -m | grep buffers/cache | awk '{print $4}'` free"; }
-# temps
-function temps() { echo -e " cpu: `sensors | grep temp1 | tail -n1 | awk '{print $2}'` -- hdd: +`sudo hddtemp /dev/sda | awk '{print $4}'`"; }
-# processes
-function my_ps() { ps $@ -u $USER -o pid,%cpu,%mem,bsdtime,command ; }
-function pp() { my_ps f | awk '!/awk/ && $0~var' var=${1:-".*"} ; }
-
-# hardware -------------------------------------------------------------
-# archives -------------------------------------------------------------
 # extract
 function extract()      
 {

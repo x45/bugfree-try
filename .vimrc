@@ -49,12 +49,19 @@ if has("autocmd")
 endif
 
 
-autocmd bufnewfile *.c so /path/c_header.txt
+autocmd bufnewfile *.sh so /home/nnm/Bureau/programmation/c/learn/sh_header.txt
+autocmd bufwritepost,filewritepost *.sh execute "normal `a"
+autocmd bufnewfile *.sh exe "1," . 10 . "g/ft.c\+*/s//" .expand("%").""
+autocmd bufnewfile *.sh exe "1," . 10 . "g/Created: +*/s//Created: " .strftime('%Y\/%m\/%d %H:%M:%S').""
+autocmd bufnewfile *.sh exe "1," . 10 . "g/Updated: /s/Updated: /Updated: " .strftime('%Y\/%m\/%d %H:%M:%S'). ""
+autocmd Bufwritepre,filewritepre *.sh exe "1," . 10 . "g/Updated: /s/Updated: .+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*/Updated: " .strftime('%Y\/%m\/%d %H:%M:%S'). ""
+
+autocmd bufnewfile *.c so /home/nnm/Bureau/programmation/c/learn/c_header.txt
 autocmd bufwritepost,filewritepost *.c execute "normal `a"
 autocmd bufnewfile *.c exe "1," . 10 . "g/ft.c\+*/s//" .expand("%").""
-autocmd bufnewfile *.c exe "1," . 10 . "g/Created: +*/s//Created: " .strftime("%Y-%m-%d %H:%M:%S").""
-autocmd bufnewfile *.c exe "1," . 10 . "g/Updated: /s/Updated: /Updated: " .strftime("%Y-%m-%d %H:%M:%S"). ""
-autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Updated: /s/Updated: .+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*/Updated: " .strftime("%Y-%m-%d %H:%M:%S"). ""
+autocmd bufnewfile *.c exe "1," . 10 . "g/Created: +*/s//Created: " .strftime('%Y\/%m\/%d %H:%M:%S').""
+autocmd bufnewfile *.c exe "1," . 10 . "g/Updated: /s/Updated: /Updated: " .strftime('%Y\/%m\/%d %H:%M:%S'). ""
+autocmd Bufwritepre,filewritepre *.c exe "1," . 10 . "g/Updated: /s/Updated: .+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*/Updated: " .strftime('%Y\/%m\/%d %H:%M:%S'). ""
 
 
 " The following are commented out as they cause vim to behave a lot
@@ -63,7 +70,7 @@ set showcmd			" Show (partial) command in status line.
 set number          " Show lines numbers
 set ttyfast         " smoother changes
 set ai              " auto indent
-set expandtab       " use space instead of tabs
+"set expandtab       " use space instead of tabs
 set si              " smart indent 
 set smarttab	    " Be smart when using tabs 
 set tabstop=4       " numbers of spaces of tab character
