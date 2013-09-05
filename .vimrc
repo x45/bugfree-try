@@ -49,14 +49,14 @@ if has("autocmd")
 endif
 
 
-autocmd bufnewfile *.sh so /home/nnm/Bureau/programmation/c/learn/sh_header.txt
+autocmd bufnewfile *.sh so /path/sh_header.txt
 autocmd bufwritepost,filewritepost *.sh execute "normal `a"
 autocmd bufnewfile *.sh exe "1," . 10 . "g/ft.c\+*/s//" .expand("%").""
 autocmd bufnewfile *.sh exe "1," . 10 . "g/Created: +*/s//Created: " .strftime('%Y\/%m\/%d %H:%M:%S').""
 autocmd bufnewfile *.sh exe "1," . 10 . "g/Updated: /s/Updated: /Updated: " .strftime('%Y\/%m\/%d %H:%M:%S'). ""
 autocmd Bufwritepre,filewritepre *.sh exe "1," . 10 . "g/Updated: /s/Updated: .+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*.+*/Updated: " .strftime('%Y\/%m\/%d %H:%M:%S'). ""
 
-autocmd bufnewfile *.c so /home/nnm/Bureau/programmation/c/learn/c_header.txt
+autocmd bufnewfile *.c so /path/c_header.txt
 autocmd bufwritepost,filewritepost *.c execute "normal `a"
 autocmd bufnewfile *.c exe "1," . 10 . "g/ft.c\+*/s//" .expand("%").""
 autocmd bufnewfile *.c exe "1," . 10 . "g/Created: +*/s//Created: " .strftime('%Y\/%m\/%d %H:%M:%S').""
