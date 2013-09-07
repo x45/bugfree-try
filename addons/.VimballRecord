@@ -1,0 +1,1 @@
+supertab.vmb: call delete('/home/nnm/.vim/doc/supertab.txt')|call delete('/home/nnm/.vim/plugin/supertab.vim')
