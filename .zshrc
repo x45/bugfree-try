@@ -103,6 +103,8 @@ alias man='LANG=C man'
 alias ll='ls -l'
 alias la='ls -A'
 alias l='ls -CF'
+alias gitpu='git add -A && git commit -am "Hi" && git push -f origin master'
+#echo "Salut $1, je doit te corriger je suis au poste afficher dans l'email, previent moi sur Adium quand tu compte passer\nName (name)" | mail -s "Corrections 42 cdenis" $1@student.42.fr
 
 # cd & goto ------------------------------------------------------------
 alias cd..='cd ..'
